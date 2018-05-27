@@ -1,0 +1,2 @@
+[17-Sep-2017 06:50:37 UTC] PHP Fatal error:  Call to undefined function get_header() in /mnt/volume-fra1-01/theagenc/public_html/work/onix/wp-content/themes/onix/index.php on line 17
+[17-Sep-2017 06:50:39 UTC] PHP Fatal error:  Call to undefined function get_header() in /mnt/volume-fra1-01/theagenc/public_html/work/onix/wp-content/themes/onix/index.php on line 17

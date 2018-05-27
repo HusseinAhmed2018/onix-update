@@ -1,0 +1,136 @@
+/* Arabic Reset file */
+
+.navbar-right {
+    float: left !important;   
+}
+.pull-right {
+     float: left !important;
+}
+.pull-left {
+    float: right !important;
+}
+
+
+.mobile-app {
+    right: 18px;
+    left: 78px;
+}
+
+.wu-icon {
+    float: right;
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+.why-item p {
+    margin-left: inherit;
+    margin-right: 70px;
+}
+
+.Latest_news .heading hr, .Testmonials .heading hr {
+    float: right;
+}
+
+.client-post:before {
+    left: -32px;
+    border-top: 14px solid transparent;
+    border-right: 31px solid #e7e7e7;
+    border-left: 0 solid #e7e7e7;
+    border-bottom: 14px solid transparent;
+    content: " ";
+    right: inherit;
+}
+
+.address-info .location-icon {
+    float: right;
+    margin-right: inherit;
+    margin-left: 15px;
+}
+
+.address-info .text-info {
+    margin-left: inherit;
+    margin-right: 90px;
+}
+
+.client-post .fa {
+    right: 8px;
+    left: inherit;
+}
+
+.client-post p {
+    margin-left: inherit;
+    margin-right: 44px;
+}
+
+.Contact-form .heading > hr {
+    float: right;
+}
+
+.Contact-form form > .form-group > span .form-control {
+    direction: rtl;
+}
+
+.contact-infos li i {
+    float: right;
+    margin-right: inherit;
+    margin-left: 15px;
+}
+
+.foot-link li a {
+    border-right: inherit;
+    border-left: solid 2px;
+    padding-left: 13px;
+    padding-right: inherit;
+}
+
+#scoll-top {
+    right: 15px;
+    left: inherit;
+}
+
+.emp-about-text {
+    border-left: none;
+    border-right: solid #04ACFF 5px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.sidebar h2 {
+    border-radius: 0px 50px 50px 0px;
+}
+
+.right-content h3 {
+    border-radius: 50px 0px 0px 50px;
+}
+
+.serv-title {
+    border-left: none;
+    border-radius: 5px 0px 0px 5px;
+    border-right: solid 5px #7FFFD4;
+}
+
+.post-content {
+    line-height: 35px;
+}
+
+.foot-link li:last-child a {
+    border: none;
+}
+
+.serv-item {
+    min-height: 325px;
+}
+
+.map-spots li {
+}
+
+.map-spots {
+direction: ltr;}
+
+.map-info {
+    text-align: right;
+}
+
+.map-info h3 {
+    font-family: droidr;
+    font-size: 14pt;
+}
