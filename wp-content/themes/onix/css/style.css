@@ -212,7 +212,11 @@ a.btn:hover{color: #ec7c23}
 .home .bxslider li h1,
 .home .bxslider li h2{margin: 0;font-weight: bold;text-transform: uppercase;color: #fff;font-family: Raleway;text-align: center;}
 .home .bxslider li h1{font-size: 40px;margin-bottom: 30px;}
-.home .bxslider .container{position: inherit;width: 1100px}
+/* dalia change start */
+/*.home .bxslider .container{position: inherit;width: 1100px}*/
+.home .bxslider .container{position: inherit;}
+/* dalia change end */
+
 .button {
   width: 150px;
   margin-top: 20px;
@@ -1305,6 +1309,13 @@ footer h4{
   .projectFactsWrap .item {
      flex: 0 0 50%;
   }
+  /* dalia change start */
+  .home .bxslider li h1 {
+    font-size: 27px;
+    margin-bottom: 30px;
+    padding: 0 30px;
+  }
+  /* dalia change end */
 }
 
 
