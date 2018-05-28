@@ -127,7 +127,9 @@ a {text-decoration: none;color: #4e3c3e;outline: none;cursor: pointer;}
 .containerr{
 	position: relative;
 	z-index: 2;
-	margin-bottom: 400px;
+	margin-bottom: 100px;
+    /*decrease the margin dalia */
+	/*margin-bottom: 400px;*/
 	box-shadow: 3px 2px 2px 0px rgba(51,51,51,0.1);
 }
 .navbar{/*height: 0;position: relative;z-index: 11;*/}
@@ -921,7 +923,10 @@ footer h4{
   margin-bottom: 10px;
 }
 .prod:first-child{margin-left: 0}
-.prods img{max-width: 100%;opacity: .9;max-height: 300px}
+/* dalia change start */
+/*.prods img{max-width: 100%;opacity: .9;max-height: 300px}*/
+.newUpdate .bx-wrapper img{max-width: 100%;opacity: .9;max-height: 300px; width: 100%}
+/* dalia change end */
 
 .prod:first-child{margin-left: 0}
 .prod img{width: 100%; opacity: .9}
@@ -944,12 +949,12 @@ footer h4{
 .sm{max-width: 970px;}
 .mmm{font-size: 20px;margin-top: 50px;}
 .product-det{overflow: hidden;}
-.product-img{float: left;width: 40%;}
-.product-info{float: right;width: 56%;}
-.product-info h2{text-align: left;}
+.product-img{float: left;width: 50%;}
+.product-info{float: right;width: 50%;}
+.product-info h2{text-align: center;}
 
 .product-info p {
-  text-align: left !important;
+  text-align: center !important;
 }
 .site-co ul.tabs {
   margin: 0;
@@ -1181,6 +1186,26 @@ footer h4{
   .rwd-table th, .rwd-table td{text-align: left;}
   .prods{width: 250px;margin: 0 auto}
   .prods > div{margin: 20px 0}
+
+
+  /* dalia change start */
+  .product-img {
+    width: 100%;
+  }
+  .product-info {
+    width: 100%;
+  }
+  .newUpdate .product-info {
+    margin-top: 30px;
+  }
+  .newUpdate #bx-pager a img {
+    max-width: 120px;
+    max-height: 80px;
+  }
+  .site-co ul.tabs li {
+    padding: 10px 15px;
+  }
+  /* dalia change end */
 }
 
 
@@ -1315,6 +1340,7 @@ footer h4{
     margin-bottom: 30px;
     padding: 0 30px;
   }
+
   /* dalia change end */
 }
 

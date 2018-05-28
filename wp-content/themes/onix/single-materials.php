@@ -52,7 +52,7 @@ $post = get_post(get_the_ID());
 <div class="site-con">
     <div class="container sm">
         <div class="site-co">
-            <div class="prods">
+            <div class="prods newUpdate">
                 <div class="product-det">
                     <!--<div class="product-img">
                                         <?php /*echo the_post_thumbnail(); */ ?>
@@ -118,12 +118,13 @@ $post = get_post(get_the_ID());
                     </ul>
                     <div class="tab_container">
                         <h3 class="d_active tab_drawer_heading" rel="tab1">Description</h3>
+                        <h3 class="tab_drawer_heading" rel="tab2">Additional Information</h3>
                         <div id="tab1" class="tab_content">
                             <?php echo $post->post_content; ?>
 
                         </div>
                         <!-- #tab1 -->
-                        <h3 class="tab_drawer_heading" rel="tab2">Additional Information</h3>
+
                         <div id="tab2" class="tab_content">
                             <?= get_post_custom_values('additional_information')[0] ?>
                         </div>
