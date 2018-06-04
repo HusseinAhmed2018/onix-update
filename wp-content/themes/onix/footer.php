@@ -47,7 +47,7 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
                     Email: <?php if ($email > '') { ?><?= $email ?><?php } ?>
                 </p>
             </div>
-            <div class="links hide">
+            <div class="links hide followUs">
                 <h3>Follow us</h3>
                 <nav>
 
@@ -93,24 +93,31 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
 <script type="text/javascript" src="<?= get_template_directory_uri() . '/js/swiper.min.js'; ?>"></script>
 
 <script>
-    $(document).ready(function () {
-        $('.ex1').zoom();
 
-        $('.product-img .bxslider img').click(function () {
+    $(document).ready(function () {
+        // $('.ex1').zoom();
+        var slider = new Swiper('.homeSlider', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            observeParents: true,
+            observer: true,
+            simulateTouch: false,
+        });
+
+        $('.common-pop .bxslider img').click(function () {
             var galleryTop = new Swiper('.gallery-top', {
                 spaceBetween: 10,
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev'
                 },
+                init: false,
                 observeParents: true,
                 observer: true,
                 simulateTouch: false,
-                on: {
-                    init: function () {
-                        zoom()
-                    }
-                }
             });
             var galleryThumbs = new Swiper('.gallery-thumbs', {
                 spaceBetween: 20,
@@ -136,10 +143,20 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
             //--------- Zoom Functionality ---------//
 
             // get zoom container width
-            var intialSize = $('.arr').width();
-            var size = $('.arr').width();
+            var intialSize = $('.arr img').width();
+            var size = $('.arr img').width();
 
             // Reset Img Width Before Sliding & Reset Positions
+            galleryTop.on('init', function () {
+                $('.gallery-top .swiper-slide-active .subImg').attr('id', 'box');
+                $('#box').css({
+                    width: intialSize,
+                    left: 0,
+                    top: 0
+                });
+                zoom();
+            });
+            galleryTop.init();
             galleryTop.on('slideChange', function () {
                 $('#box').css({
                     width: intialSize,
@@ -162,12 +179,12 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
             //Handling oom In And Out
             $('.plus').click(function () {
                 if (size < intialSize + 600) {
-                    size += 100
+                    size += 100;
                     $('.zoomContainer .swiper-slide-active #box').css('width', size + 'px')
                 }
                 $('#box').css({
                     display: 'block',
-                })
+                });
                 $('.mainImg').css({
                     display: 'none',
                 })
@@ -185,10 +202,10 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
 
             function zoom() {
                 var box = $('#box');
-                box.offset({
-                    left: 0,
-                    top: 0
-                });
+                // box.offset({
+                //     left: 0,
+                //     top: 0
+                // });
 
                 var drag = {
                     x: 0,
@@ -201,45 +218,52 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
                 };
 
                 // When clicking Get X and Y According To document
-                box.mousedown(function (e) {
+                box.on('mousedown touchstart', (function (e) {
                     if (!drag.state) {
-                        drag.x = e.pageX;
-                        drag.y = e.pageY;
+                        drag.x = e.pageX || e.originalEvent.touches[0].pageX;
+                        drag.y = e.pageY || e.originalEvent.touches[0].pageY;
                         drag.state = true;
                     }
                     return false;
-                });
+                }));
 
 
-                $('.arr').mousemove(function (e) {
+                $('.arr').on('mousemove touchmove', (function (e) {
                     if (drag.state) {
                         // Difference Between First Click And Current Click
-                        diff.x = e.pageX - drag.x;
-                        diff.y = e.pageY - drag.y;
+                        diff.x = (e.pageX || e.originalEvent.touches[0].pageX) - drag.x;
+                        diff.y = (e.pageY || e.originalEvent.touches[0].pageY) - drag.y;
 
                         var cur_offset = $('.swiper-slide-active #box').offset();
-                        var divLeft = (cur_offset.left + diff.x) - $('.swiper-slide-active .arr').offset().left ;
+                        var divLeft = (cur_offset.left + diff.x) - $('.swiper-slide-active .arr').offset().left;
                         var divTop = (cur_offset.top + diff.y) - $('.arr').offset().top;
                         var diffWidth = $('.swiper-slide-active .arr').width() - $('#box').width();
                         var bottom = $('.gallery-top .swiper-slide-active').height() - $('.swiper-slide-active #box').height();
 
 
-                        if ((divLeft <= 0) && (divTop <= 0) && ( divLeft >= diffWidth) && ( bottom <= divTop)) {
-                            $('.arr #box').offset({
-                                left: (cur_offset.left + diff.x),
-                                top: (cur_offset.top + diff.y)
-                            });
+                        if ((divLeft <= 0) && (divTop <= 0) && (divLeft >= diffWidth)) {
+                            if(bottom <= divTop){
+                                $('.arr #box').offset({
+                                    left: (cur_offset.left + diff.x),
+                                    top: (cur_offset.top + diff.y)
+                                });
+                            }
+                            else {
+                                $('.arr #box').offset({
+                                    left: (cur_offset.left + diff.x),
+                                });
+                            }
                         }
-                        drag.x = e.pageX;
-                        drag.y = e.pageY;
+                        drag.x = e.pageX || e.originalEvent.touches[0].pageX;
+                        drag.y = e.pageY || e.originalEvent.touches[0].pageY;
                     }
-                });
+                }));
 
-                $('.arr').mouseup(function () {
+                $('.arr').on('mouseup touchend', (function () {
                     if (drag.state) {
                         drag.state = false;
                     }
-                });
+                }));
             }
         });
 
@@ -248,9 +272,14 @@ $google_plus = get_post_custom($page[0]->ID)['google_plus'][0];
             $('.gallery-top .subImg').css('display', 'none');
             $('.gallery-top .mainImg').css('display', 'block');
         });
+        $('.home .bxslider').css('height', 'auto')
 
     });
+    $(window).on('resize' , function () {
+        $('.home .bxslider').css('height', 'auto')
+    });
 </script>
+
 
 </body>
 </html>

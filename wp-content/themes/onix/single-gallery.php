@@ -29,35 +29,25 @@ if (isset($catsPost[0]->slug)) {
 
 ?>
 
-<!--Start Main Slider-->
-<?php //get_template_part( 'content', 'slider' );?>
-<!--END Main Slider-->
-
-
-<!--<div class="my-container">-->
-<!--    <p class="my-close">X</p>-->
-<!--    <div class="around-img">-->
-<!--        <img class="demo" src="" alt="Demo" id="x"-->
-<!--             style="max-width: 100%; max-height: 100%;height: inherit !important; display: none">-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="site-con">
     <div class="container">
-<!--        <span class='zoom1' id='ex1'>-->
-<!--		<img src='--><?//= get_template_directory_uri() . '/images/name1.jpg'?><!--' width='555' height='320' alt='Daisy on the Ohoopee'/>-->
-<!--		<p>Hover</p>-->
-<!--	</span>-->
-        <div class="site-co sing-gallery">
+
+        <div class="site-co sing-gallery common-slider common-pop">
             <h1><?= the_title() ?></h1>
             <p><?= $cats ?></p>
+
             <ul class="bxslider">
                 <?php
                 foreach (get_post_custom_values('images') as $key => $image_id) {
                     # code...
                     $image = wp_get_attachment_image_src($image_id, 'full');
                     ?>
-                    <li class='ex1'><img src="<?= $image[0] ?>" class="sliderImg"  alt='Daisy on the Ohoopee'/></li>
+
+                    <li class=''>
+                        <div class="overimage right"></div>
+                        <img class="sliderImg" src='<?=$image[0]?>' alt=''>
+                        <div class="overimage left"></div>
+                    </li>
                 <?php } ?>
             </ul>
 
@@ -70,6 +60,50 @@ if (isset($catsPost[0]->slug)) {
                     <a data-slide-index="<?= $key ?>" href=""><img src="<?= $image[0] ?>"/></a>
                 <?php } ?>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="myPopup">
+    <a href="javascript:void(0)" class="closePop">X</a>
+    <div class="controlZoom">
+        <a href="javascript:void(1)" class="minus">-</a>
+        <a href="javascript:void(1)" class="plus">+</a>
+    </div>
+    <div class="swiper-container gallery-top zoomContainer">
+        <div class="swiper-wrapper">
+            <?php
+                foreach (get_post_custom_values('images') as $key => $image_id) {
+                    # code...
+                    $image = wp_get_attachment_image_src($image_id, 'full');
+            ?>
+                    <div class="swiper-slide">
+                        <div class="arr">
+                            <img class="demo mainImg" src="<?= $image[0] ?>" alt="Demo">
+                            <img class="subImg" src="<?= $image[0] ?>" alt="Demo" style="display: none">
+                        </div>
+                    </div>
+            <?php
+                }
+            ?>
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+    <div class="swiper-container gallery-thumbs">
+        <div class="swiper-wrapper">
+            <?php
+                foreach (get_post_custom_values('images') as $key => $image_id) {
+                    # code...
+                    $image = wp_get_attachment_image_src($image_id, 'full');
+            ?>
+                    <div class="swiper-slide">
+                        <img class="demo" src="<?= $image[0] ?>" alt="Demo" id="x">
+                    </div>
+            <?php
+                }
+            ?>
         </div>
     </div>
 </div>

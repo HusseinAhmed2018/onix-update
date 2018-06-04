@@ -58,23 +58,28 @@ $galleries = query_posts($materials_args);
 <?php //get_template_part( 'content', 'slider' );?>
 <!--END Main Slider-->
 <header class="home">
-    <ul class="bxslider">
+    <div class="swiper-container homeSlider">
+        <div class="swiper-wrapper">
+            <?php foreach ($sliders as $key => $slider) {
 
-        <?php foreach ($sliders as $key => $slider) {
+                $image = wp_get_attachment_image_src(get_post_custom_values('image', $slider->ID)[0], 'full');
 
-            $image = wp_get_attachment_image_src(get_post_custom_values('image', $slider->ID)[0], 'full');
+                if (!$image) $image = bloginfo('stylesheet_directory') . '/images/default-image.png';
 
-            if (!$image) $image = bloginfo('stylesheet_directory') . '/images/default-image.png';
-
-            ?>
-            <li class="ovrly" style="background-image:url(<?php echo $image[0]; ?>);">
-                <div class="container">
-                    <h1><?php echo(nl2br($slider->post_excerpt)); ?> </h1>
-                    <!-- <a href=""><div class="button">Read more</div></a> -->
+                ?>
+                <div class="swiper-slide" style="background-image:url(<?php echo $image[0]; ?>);">
+                    <div class="container">
+                        <!-- <a href=""><div class="button">Read more</div></a> -->
+                        <h1><?php echo(nl2br($slider->post_excerpt)); ?> </h1>
+                    </div>
                 </div>
-            </li>
-        <?php } ?>
-    </ul>
+
+            <?php } ?>
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
 </header>
 <?php foreach ($categories as $i => $cat) { ?>
     <div class="about">
@@ -117,7 +122,7 @@ $galleries = query_posts($materials_args);
     </div>
 <?php } ?>
 <div class="about">
-    <a class="all" href="<?= get_page_link( 64 ); ?>">All Products</a>
+    <a class="all" href="<?= get_page_link(64); ?>">All Products</a>
 </div>
 
 <div class="about">
@@ -127,16 +132,16 @@ $galleries = query_posts($materials_args);
         </div>
         <div class="row">
             <div class="grid-follow">
-<?php
+                <?php
 
-$facebook = get_post_meta(27,'facebook',true);
-$twitter = get_post_meta(27,'twitter',true);
-$instagram = get_post_meta(27,'instagram',true);
-$Google = get_post_meta(27,'google_plus',true);
+                $facebook = get_post_meta(27, 'facebook', true);
+                $twitter = get_post_meta(27, 'twitter', true);
+                $instagram = get_post_meta(27, 'instagram', true);
+                $Google = get_post_meta(27, 'google_plus', true);
 
-?>
+                ?>
                 <div id='' class="follow-social col-md-3 col-sm-6 col-xs-12">
-                    <a href="<?=$facebook;?>" target="_blank">
+                    <a href="<?= $facebook; ?>" target="_blank">
                         <img src="http://theagencycairo.me/work/onix/wp-content/uploads/2017/06/Raleigh-art-museum-Brooks-Scarpa1.jpg"/>
 
                         <h4>FACEBOOK</h4>
@@ -144,7 +149,7 @@ $Google = get_post_meta(27,'google_plus',true);
                 </div>
 
                 <div class="follow-social col-md-3 col-sm-6 col-xs-12">
-                    <a href="<?=$instagram;?>" target="_blank">
+                    <a href="<?= $instagram; ?>" target="_blank">
                         <img src="http://theagencycairo.me/work/onix/wp-content/uploads/2017/06/Raleigh-art-museum-Brooks-Scarpa1.jpg"/>
 
                         <h4>INSTAGRAM</h4>
@@ -152,7 +157,7 @@ $Google = get_post_meta(27,'google_plus',true);
                 </div>
 
                 <div class="follow-social col-md-3 col-sm-6 col-xs-12">
-                    <a href="<?=$Google;?>" target="_blank">
+                    <a href="<?= $Google; ?>" target="_blank">
                         <img src="http://theagencycairo.me/work/onix/wp-content/uploads/2017/06/Raleigh-art-museum-Brooks-Scarpa1.jpg"/>
 
                         <h4>GOOGLE</h4>

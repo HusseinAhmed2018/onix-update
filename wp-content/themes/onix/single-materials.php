@@ -52,29 +52,38 @@ $post = get_post(get_the_ID());
 <div class="site-con">
     <div class="container sm">
         <div class="site-co">
-            <div class="prods newUpdate">
+            <div class="prods newUpdate common-slider">
                 <div class="product-det">
                     <!--<div class="product-img">
                                         <?php /*echo the_post_thumbnail(); */ ?>
                                     </div>-->
 
                     <!-- Start Slider-->
-                    <div class="single-m product-img">
+                    <div class="single-m product-img common-pop">
+
                         <ul class="bxslider">
                             <?php
-                            if (get_post_custom_values('material_gallery') != null) {
-                                $image_length = count(get_post_custom_values('material_gallery'));
-                                for ($i = 0; $i <= $image_length; $i++) {
-                                    $imagess = wp_get_attachment_image_src(get_post_custom_values('material_gallery')[$i], 'full');
-                                    echo "<li><img src='" . $imagess[0] . "' alt=''></li>";
-                                }
-                            } else {
-                                echo the_post_thumbnail();
-                            }
+                                if(get_post_custom_values('material_gallery') != null){
+                                    foreach (get_post_custom_values('material_gallery') as $key => $image_id) {
+                                        # code...
+                                        $image = wp_get_attachment_image_src($image_id, 'full');
 
                             ?>
 
+                                <li class=''>
+                                    <div class="overimage right"></div>
+                                    <img class="sliderImg" src='<?=$image[0]?>' alt=''>
+                                    <div class="overimage left"></div>
+                                </li>
+                            <?php
+                                    }
+                                }else{
+                                    echo the_post_thumbnail();
+                                }
+
+                            ?>
                         </ul>
+
                         <div id="bx-pager">
                             <?php
                             if (get_post_custom_values('material_gallery') != null) {
@@ -100,15 +109,29 @@ $post = get_post(get_the_ID());
 
                     <div class="product-info">
                         <h2><?php the_title() ?></h2>
-                        <p>
-                            <?php the_excerpt() ?>
-                        </p>
+                        <?php
+                        //                                the_excerpt()
+                        $id = get_the_ID();
+                        $dimension = get_post_meta($id, 'dimension')[0];
+                        $Thickness = get_post_meta($id, 'thickness')[0];
+                        ?>
+
+                        <div class="title-wrapper">
+                            <p class="my-titles">Dimension</p>
+                            <p style="font-size: 14px"><?= $dimension; ?></p>
+                        </div>
+
+                        <div class="title-wrapper">
+                            <p class="my-titles">Thickness</p>
+                            <p style="font-size: 14px"><?= $Thickness; ?></p>
+                        </div>
                         <!--<p>
                                             SKU: <? /*=get_post_custom_values('sku')[0]*/ ?>
                                         </p>-->
-                        <p>
-                            Category: <?= $cats ?>
-                        </p>
+                        <div>
+                            <p class="my-titles">Category:</p>
+                            <p style="font-size: 14px"><?= $cats ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="flight-details">
@@ -154,7 +177,7 @@ $post = get_post(get_the_ID());
                                 $link = get_permalink($post_id);
                                 $related_post = get_the_post_thumbnail($post_id, array(220, 195));
                                 ?>
-                                <div class="grid-item">
+                                <div class="grid-item related-img">
                                     <a href="<?= $link; ?>">
                                         <?= $related_post; ?>
                                     </a>
@@ -186,39 +209,27 @@ $post = get_post(get_the_ID());
                 $image_length = count(get_post_custom_values('material_gallery'));
                 for ($i = 0; $i < $image_length; $i++) {
                     $imagess = wp_get_attachment_image_src(get_post_custom_values('material_gallery')[$i], 'full');
-            ?>
+                    ?>
                     <div class="swiper-slide">
                         <div class="arr">
                             <img class="demo mainImg" src="<?= $imagess[0] ?>" alt="Demo">
-                            <img class="subImg" src="<?= $imagess[0]?>" alt="Demo" id="box" style="display: none">
+                            <img class="subImg" src="<?= $imagess[0] ?>" alt="Demo" style="display: none">
                         </div>
                     </div>
-            <?php
+                    <?php
                 }
-            }else{
-            ?>
+            } else {
+                ?>
                 <div class="swiper-slide">
                     <div class="arr">
                         <img class="demo mainImg" src="<?= get_the_post_thumbnail_url(get_the_ID()) ?>" alt="Demo">
-                        <img class="subImg" src="<?= get_the_post_thumbnail_url(get_the_ID())?>" alt="Demo" id="box" style="display: none">
+                        <img class="subImg" src="<?= get_the_post_thumbnail_url(get_the_ID()) ?>" alt="Demo"
+                             style="display: none">
                     </div>
                 </div>
-            <?php
+                <?php
             }
             ?>
-<!--            <div class="swiper-slide">-->
-<!--                <div class="arr">-->
-<!--                    <img class="demo mainImg" src="--><?//= get_template_directory_uri() . '/images/2.jpg' ?><!--" alt="Demo">-->
-<!--                    <img class="subImg" src="--><?//= get_template_directory_uri() . '/images/2.jpg' ?><!--" alt="Demo" id="box" style="display: none">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            -->
-<!--            <div class="swiper-slide">-->
-<!--                <div class="arr">-->
-<!--                    <img class="demo mainImg" src="--><?//= get_template_directory_uri() . '/images/5.jpg' ?><!--" alt="Demo">-->
-<!--                    <img class="subImg" src="--><?//= get_template_directory_uri() . '/images/5.jpg' ?><!--" alt="Demo" style="display: none">-->
-<!--                </div>-->
-<!--            </div>-->
 
         </div>
         <!-- Add Arrows -->
@@ -234,27 +245,29 @@ $post = get_post(get_the_ID());
                     $imagess = wp_get_attachment_image_src(get_post_custom_values('material_gallery')[$i], 'full');
                     ?>
                     <div class="swiper-slide">
-                        <img class="demo" src="<?= $imagess[0]?>" alt="Demo" id="x">
+                        <img class="demo" src="<?= $imagess[0] ?>" alt="Demo" id="x">
                     </div>
                     <?php
                 }
-            }else{
-            ?>
+            } else {
+                ?>
                 <div class="swiper-slide">
-                    <img class="demo" src="<?= get_the_post_thumbnail_url(get_the_ID())?>" alt="Demo" id="x">
+                    <img class="demo" src="<?= get_the_post_thumbnail_url(get_the_ID()) ?>" alt="Demo" id="x">
                 </div>
-            <?php
+                <?php
             }
 
             ?>
-<!--            <div class="swiper-slide">-->
-<!--                <img class="demo" src="--><?//= get_template_directory_uri() . '/images/2.jpg' ?><!--" alt="Demo" id="x">-->
-<!--            </div>-->
-<!--            -->
-<!--            <div class="swiper-slide">-->
-<!--                <img class="demo" src="--><?//= get_template_directory_uri() . '/images/5.jpg' ?><!--" alt="Demo">-->
-<!---->
-<!--            </div>-->
+            <!--            <div class="swiper-slide">-->
+            <!--                <img class="demo" src="-->
+            <? //= get_template_directory_uri() . '/images/2.jpg' ?><!--" alt="Demo" id="x">-->
+            <!--            </div>-->
+            <!--            -->
+            <!--            <div class="swiper-slide">-->
+            <!--                <img class="demo" src="-->
+            <? //= get_template_directory_uri() . '/images/5.jpg' ?><!--" alt="Demo">-->
+            <!---->
+            <!--            </div>-->
 
         </div>
     </div>
